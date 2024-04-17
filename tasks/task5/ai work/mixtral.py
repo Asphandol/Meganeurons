@@ -22,8 +22,6 @@ def selection_sort(lst:list) -> list:
             lst[i], lst[min_index] = lst[min_index], lst[i]
     return lst
 
-
-
 def quick_sort(lst:list) -> list:
     '''
     list -> list
@@ -45,6 +43,14 @@ def top_names(correct_list:list, num_list:list)-> set:
     '''
     Returns top 3 names
     list, list -> set
+    >>> top_names([('А', 23), ('В', 21), ('Г', 9), ('Б', 8), ('Ґ', 2)], [23, 21, 9, 8, 2])
+    {'А', 'В', 'Г'}
+
+    >>> top_names([('Марія', 23), ('Ольга', 21), ('Юлія', 19), ('Катерина', 18)], [23, 21, 19, 18, 17, 16])
+    {'Марія', 'Ольга', 'Юлія'}
+
+    >>> top_names([('Марія', 23), ('Ольга', 21), ('Юлія', 19), ('Катерина', 18)], [18, 19, 21, 23])
+    {'Марія', 'Ольга', 'Юлія'}
     '''
     sorted_list = selection_sort(num_list)[::-1][:3]
     top_list = []
