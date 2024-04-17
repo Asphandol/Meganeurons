@@ -24,24 +24,17 @@ def create_acronym(input_sentence: str) -> str:
 
             acronyms = "".join(acronyms)
 
-        elif len(sentences) == 1:
-            sentence = sentences[0]
-
-            words = sentence.split()
-
-            acronym = ""
-
-            for word in words:
-                acronym += word[0]
-
-            acronym = acronym.upper()
-
-            acronym += " -"
-
-            words.insert(0, acronym)
-
-            acronyms = words
-
-            acronyms = " ".join(acronyms)
+        else:
+            words = sentences[0].split()
+        
+            acronym = "".join(word[0].upper() for word in words)
+        
+            words = [acronym] + [' '.join(words)]
+        
+            words = " - ".join(words)
+        
+            acronyms = [words]
+        
+            acronyms = "".join(acronyms)
 
         return acronyms
