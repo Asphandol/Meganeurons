@@ -24,4 +24,4 @@ def compare_char(ch1, ch2):
 
 if __name__=="__main__":
     import doctest
-    doctest.testmod()
+    print(doctest.testmod())

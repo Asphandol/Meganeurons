@@ -11,17 +11,17 @@ def selection_sort(lst:list) -> list:
     >>> selection_sort([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 2, 3, 4, 5])
     [1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7, 8, 9, 10]
     '''
-    list_copy = copy.deepcopy(lst)
-    i = len(lst)
-    j = 0
-    while i != 0:
-        min_ind = j + lst[j:].index(min(lst[j:]))
-        lst[j] = list_copy[min_ind]
-        lst[min_ind] = list_copy[j]
-        list_copy = copy.deepcopy(lst)
-        j+=1
-        i-=1
+    for i in range(len(lst) - 1):
+        min_index = i
+        min_value = lst[i]
+        for j in range(i + 1, len(lst)):
+            if lst[j] < min_value:
+                min_index = j
+                min_value = lst[j]
+        if min_index != i:
+            lst[i], lst[min_index] = lst[min_index], lst[i]
     return lst
+
 
 
 def quick_sort(lst:list) -> list:
