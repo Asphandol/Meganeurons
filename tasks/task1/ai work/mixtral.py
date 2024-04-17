@@ -19,7 +19,7 @@ def create_acronym(input_sentence: str) -> str:
 
                 acronyms.append(words)
 
-                if sentences.index(sentence) != (len(sentences) - 1):
+                if sentence != sentences[-1]:
                     acronyms.append("\n")
 
             acronyms = "".join(acronyms)
