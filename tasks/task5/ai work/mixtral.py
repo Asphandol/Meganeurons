@@ -61,6 +61,15 @@ def one_use_name(correct_list:list) -> tuple:
     '''
     list -> tuple
     Returns names that were used only once
+    >>> one_use_name([('А', 1), ('В', 2), ('Г', 1), ('Д', 1)])[1] == {'А', 'Д', 'Г'}
+    True
+
+    (3, {'А', 'Д', 'Г'})
+
+    >>> one_use_name([('А', 3), ('Б', 1), ('В', 2)])[1] == {'Б'}
+    True
+    
+    (1, {'Б'})
     '''
     counter = 0
     one_list = []
