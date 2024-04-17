@@ -52,11 +52,14 @@ def top_names(correct_list:list, num_list:list)-> set:
     >>> top_names([('Марія', 23), ('Ольга', 21), ('Юлія', 19), ('Катерина', 18)], [18, 19, 21, 23]) == {'Марія', 'Ольга', 'Юлія'}
     True
     '''
+    # sorted_list = selection_sort(num_list)[::-1][:3]
+    # top_list = []
+    # for name in correct_list:
+    #     if name[1] in sorted_list:
+    #         top_list.append(name[0])
+    # return set(top_list[:3])
     sorted_list = selection_sort(num_list)[::-1][:3]
-    top_list = []
-    for name in correct_list:
-        if name[1] in sorted_list:
-            top_list.append(name[0])
+    top_list = list(map(lambda x: x[0], filter(lambda x: x[1] in sorted_list, correct_list)))
     return set(top_list[:3])
 
 
