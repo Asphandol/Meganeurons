@@ -7,25 +7,11 @@ def create_acronym(input_sentence: str) -> str:
 
         acronyms = []
 
-        if len(sentences) > 1:
-            for sentence in sentences:
-                words = sentence.split()
-
-                acronym = "".join(word[0].upper() for word in words)
-
-                words = [acronym] + [' '.join(words)]
-
-                words = " - ".join(words)
-
-                acronyms.append(words)
-
-                if sentence != sentences[-1]:
-                    acronyms.append("\n")
-
-            acronyms = "".join(acronyms)
-
-        else:
-            words = sentences[0].split()
+        for i, sentence in enumerate(sentences):
+            if sentence.isdigit():
+                continue
+        
+            words = sentence.split()
         
             acronym = "".join(word[0].upper() for word in words)
         
@@ -33,8 +19,12 @@ def create_acronym(input_sentence: str) -> str:
         
             words = " - ".join(words)
         
-            acronyms = [words]
+            if i < len(sentences) - 1:
+                acronyms.append(words)
+                acronyms.append("\n")
+            else:
+                acronyms.append(words)
         
-            acronyms = "".join(acronyms)
+        acronyms = "".join(acronyms)
 
         return acronyms
