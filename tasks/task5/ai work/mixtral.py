@@ -28,22 +28,18 @@ def quick_sort(lst:list) -> list:
     '''
     list -> list
     implements a quick sort algorithm. Should return a sorted list lst
+    >>> quick_sort([('А', 23), ('Б', 8), ('В', 21), ('Г', 9), ('Ґ', 2)])
+    [('Ґ', 2), ('Б', 8), ('Г', 9), ('В', 21), ('А', 23)]
+    >>> quick_sort([(1, 23), (5, 8), (5, 21), (6, 9), (6, 2)])
+    [(6, 2), (5, 8), (6, 9), (5, 21), (1, 23)]
     '''
-    if len(lst)>1:
-        el = lst[len(lst) // 2]
-        smaller_list = []
-        bigger_list = []
-        middle_list = []
-        for num in lst:
-            if num[1] > el[1]:
-                bigger_list.append(num)
-            elif num[1]<el[1]:
-                smaller_list.append(num)
-            elif num[1] == el[1]:
-                middle_list.append(el)
-        return quick_sort(smaller_list) +middle_list+ quick_sort(bigger_list)
-    return lst
-
+    if len(lst) <= 1:
+        return lst
+    pivot = lst[len(lst) // 2][1]
+    left = [x for x in lst if x[1] < pivot]
+    middle = [x for x in lst if x[1] == pivot]
+    right = [x for x in lst if x[1] > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
 
 def top_names(correct_list:list, num_list:list)-> set:
     '''
