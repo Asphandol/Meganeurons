@@ -68,16 +68,21 @@ def one_use_name(correct_list:list) -> tuple:
 
     >>> one_use_name([('А', 3), ('Б', 1), ('В', 2)])[1] == {'Б'}
     True
-    
+
     (1, {'Б'})
     '''
-    counter = 0
-    one_list = []
-    for name in correct_list:
-        if name[1] == 1:
-            counter += 1
-            one_list.append(name[0])
-    return (counter, set(one_list))
+    # counter = 0
+    # one_list = []
+    # for name in correct_list:
+    #     if name[1] == 1:
+    #         counter += 1
+    #         one_list.append(name[0])
+    # return (counter, set(one_list))
+    count = {}
+    for name, freq in correct_list:
+        count[name] = count.get(name, 0) + freq
+    counter = sum(x == 1 for x in count.values())
+    return (counter, set(name[0] for name in correct_list if count[name[0]] == 1))
 
 
 def popular_letter(correct_list:list) -> tuple:
