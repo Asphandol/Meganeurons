@@ -1,5 +1,3 @@
-import copy
-
 def selection_sort(lst:list) -> list:
     '''
     list -> list
