@@ -45,3 +45,18 @@ def get_user_words() -> list[str]:
             user_list.extend(input().lower().strip().split())
         except EOFError:
             return user_list
+
+def get_pure_user_words(user_words: list[str], \
+letters: list[str], words_from_dict: list[str]) -> list[str]:
+    """
+    Checks user words with the rules and returns list of those words
+    that are not in dictionary.
+    """
+
+    pure_words=[]
+    for el in user_words:
+        if 4<= len(el)<=9 and letters[4] in el:
+            if el not in pure_words and all(i in letters for i in el)\
+                 and el not in words_from_dict:
+                pure_words.append(el)
+    return pure_words
