@@ -1,3 +1,6 @@
+import time
+
+start_time = time.time()
 def read_file(file_path):
     '''
     Read the info from file
@@ -89,3 +92,7 @@ def rescue_people(smarties: dict, limit_iq: int)->tuple:
 if __name__=='__main__':
     import doctest
     print(doctest.testmod())
+
+end_time = time.time()
+
+print("Execution Time: ", end_time - start_time)

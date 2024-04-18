@@ -1,3 +1,6 @@
+import time
+start_time = time.time()
+
 ''' Functions returns first letter of every word
 '''
 def create_acronym(sentence: str) -> str:
@@ -47,3 +50,7 @@ def create_acronym(sentence: str) -> str:
                 new_lst.extend(cur_sen)
                 new_lst = ' '.join(new_lst)
         return new_lst
+    
+end_time = time.time()
+
+print("Execution Time: ", end_time - start_time)

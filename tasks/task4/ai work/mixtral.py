@@ -1,4 +1,6 @@
 import random
+import time
+start_time = time.time()
 def generate_grid() -> list[list[str]]:
     """
     Generates list of lists of letters - i.e. grid for the game.
@@ -79,3 +81,7 @@ def main():
     print(f"You missed the following words: \n {vocab_list.copy()}\n")
     print(f"You suggest, but we don`t have them in dictionary: \
 {get_pure_user_words(user_list, lower_generate_letters, vocab_list)}")
+
+end_time = time.time()
+
+print("Execution Time: ", end_time - start_time)

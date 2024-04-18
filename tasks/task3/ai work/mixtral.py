@@ -1,3 +1,7 @@
+import time
+start_time = time.time()
+
+
 def create_acronym(input_sentence: str) -> str:
     if isinstance(input_sentence, str):
         if any(char.isdigit() for char in input_sentence):
@@ -28,3 +32,8 @@ def create_acronym(input_sentence: str) -> str:
         acronyms = "".join(acronyms)
 
         return acronyms
+    
+
+end_time = time.time()
+
+print("Execution Time: ", end_time - start_time)

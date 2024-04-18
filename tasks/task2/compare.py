@@ -1,3 +1,7 @@
+import time
+
+start_time = time.time()
+
 def compare_char(ch1, ch2):
     """
     (str, str) -> bool
@@ -41,3 +45,12 @@ def compare_char(ch1, ch2):
     else:
         return
     return res1 > res3
+
+if __name__=="__main__":
+    import doctest
+    print(doctest.testmod())
+
+
+end_time = time.time()
+
+print("Execution Time: ", end_time - start_time)

@@ -1,3 +1,8 @@
+import time
+import tracemalloc
+
+tracemalloc.start()
+start_time = time.time()
 '''
 lab 11
 Алгоритм, за яким прибульці забирають людей, нагадує 
@@ -99,3 +104,7 @@ def rescue_people(smarties: dict, limit_iq: int)->tuple:
 if __name__=='__main__':
     import doctest
     print(doctest.testmod())
+
+end_time = time.time()
+
+print("Execution Time: ", end_time - start_time)
