@@ -38,14 +38,7 @@ def get_user_words() -> list[str]:
     for Windows.
     Note: the user presses the enter key after entering each word.
     """
-    # user_list=[]
-    # while True:
-    #     try:
-    #         inp = input()
-    #         x = inp.lower().strip()
-    #         user_list.append(x)
-    #     except EOFError:
-    #         return user_list
+
     user_list=[]
     while True:
         try:
