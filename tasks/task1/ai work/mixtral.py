@@ -61,6 +61,31 @@ def quick_sort(lst):
 
     return quick_sort(low)+[pivot]+quick_sort(high)
 
+def rescue_people(smarties: dict, limit_iq: int)->tuple:
+    '''
+    Counts the amount of travels to get people
+    to another planet.
+
+    >>> rescue_people({"Steve Jobs": 160, "Albert Einstein": 160, \
+"Sir Isaac Newton": 195, "Nikola Tesla": 189}, 500)
+    (2, [['Sir Isaac Newton', 'Nikola Tesla'], ['Albert Einstein', 'Steve Jobs']])
+    '''
+    list_names_iq = sorted([(k, v) for k, v in smarties.items()], key=lambda x: (-x[1], x[0]))
+    all_trips=[]
+
+    while any(list_names_iq):
+        iq_left=limit_iq
+        trip=[]
+        for ind, el in enumerate(list_names_iq):
+            if isinstance(el, tuple) and iq_left>=el[1]:
+                trip.append(el[0])
+                list_names_iq[ind]='flew'
+                iq_left-=el[1]
+        all_trips.append(trip)
+        list_names_iq=[tup for tup in list_names_iq if tup!='flew']
+    return (len(all_trips), all_trips)
+
+
 if __name__=='__main__':
     import doctest
     print(doctest.testmod())
