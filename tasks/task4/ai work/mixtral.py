@@ -6,17 +6,9 @@ def generate_grid() -> list[list[str]]:
     """
     lower_c = "BCDFGHJKLMNPQRSTVWXZ"
     lower_v = "AEIOUY"
-    gener_list =[[],[],[]]
-    random_list = [random.choice(lower_c) for _ in range(6)]
+    random_list = [random.choice(lower_c) for _ in range(6)] 
     random_list += [random.choice(lower_v) for _ in range(3)]
     random.shuffle(random_list)
-    k=3
-    v=0
-    for m in range(3):
-        for i in range(v,k):
-            gener_list[m].append(random_list[i])
-        v+=3
-        k+=3
-    return gener_list
+    return [random_list[i:i+3] for i in range(0, len(random_list), 3)]
 
 print(generate_grid())
