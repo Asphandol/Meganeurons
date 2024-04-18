@@ -71,13 +71,6 @@ def one_use_name(correct_list:list) -> tuple:
 
     (1, {'Б'})
     '''
-    # counter = 0
-    # one_list = []
-    # for name in correct_list:
-    #     if name[1] == 1:
-    #         counter += 1
-    #         one_list.append(name[0])
-    # return (counter, set(one_list))
     count = {}
     for name, freq in correct_list:
         count[name] = count.get(name, 0) + freq
@@ -115,20 +108,13 @@ def find_names(file_path: str) -> tuple:
     '''
     with open(file_path, "r", encoding = "utf-8") as file:
         list_of_names = file.readlines()
-        correct_list =[]
-        num_list = []
-        for el in list_of_names:
-            if len(el.strip().split("\t")) == 2:
-                name_num = el.replace("(", "").replace(")","").strip().split()
-                name_num[1] = int(name_num[1])
-                correct_list.append(name_num)
-                num_list.append(name_num[1])
-    # return top_names(correct_list, num_list)
-    # return one_use_name(correct_list)
+        correct_list = [(el.strip().split()[0], int(el.strip().split()[1][1:-1]))
+                 for el in list_of_names
+                 if len(el.strip().split()) == 2]
+        num_list = [pair[1] for pair in correct_list]
+
     return (top_names(correct_list, num_list),one_use_name(correct_list), \
 popular_letter(correct_list))
-
-
 
 if __name__=="__main__":
     import doctest
