@@ -55,8 +55,9 @@ letters: list[str], words_from_dict: list[str]) -> list[str]:
 
     pure_words=[]
     for el in user_words:
-        if 4<= len(el)<=9 and letters[4] in el:
-            if el not in pure_words and all(i in letters for i in el)\
-                 and el not in words_from_dict:
-                pure_words.append(el)
+        if 4 <= len(el) <= 9 and letters[4] in el \
+            and el not in pure_words \
+            and all(i in letters for i in el) \
+            and el not in words_from_dict:
+            pure_words.append(el)
     return pure_words
