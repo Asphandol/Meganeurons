@@ -89,25 +89,29 @@ def popular_letter(correct_list:list) -> tuple:
     '''
     list -> tuple
     Returns most popular letter and number of names begin with it
+    >>> popular_letter([('Петро', 5), ('Іван', 1), ('Оксана', 1), ('Олесь', 3)])
+    ('О', 2, 4)
+
+    >>> popular_letter([('Антон', 1), ('Юлія', 2), ('Андрій', 1), ('Олексій', 1)])
+    ('А', 2, 2)
     '''
-    list_letters = []
-    list_pair = []
+    count = {}
     for name in correct_list:
-        if name[0][0] not in list_letters:
-            list_pair.append([name[0][0], 1])
-            list_letters.append(name[0][0])
+        letter = name[0][0]
+        if letter not in count:
+            count[letter] = 1
         else:
-            list_pair[list_letters.index(name[0][0])][1] += 1
-    best_letter = quick_sort(list_pair)[::-1][:1][0]
-    counter_kids = 0
-    for name in correct_list:
-        if name[0][0] == best_letter[0]:
-            counter_kids += name[1]
-    return (best_letter[0], best_letter[1], counter_kids)
+            count[letter] += 1
+
+    best_letter = max(count.items(), key=lambda x: x[1])
+    counter_kids = sum(name[1] for name in correct_list if name[0][0] == best_letter[0])
+
+    return (best_letter[0], count[best_letter[0]], counter_kids)
 
 def find_names(file_path: str) -> tuple:
     '''
     str -> tuple
+
     '''
     with open(file_path, "r", encoding = "utf-8") as file:
         list_of_names = file.readlines()
