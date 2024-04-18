@@ -33,6 +33,34 @@ def selection_sort(lst):
             ind+=1
     return lst
 
+def quick_sort(lst):
+    '''
+    quick sort algorithm
+    >>> quick_sort([('Steve Jobs', 160), \
+('Albert Einstein', 160), ('Sir Isaac Newton', 195), \
+('Nikola Tesla', 189)])
+    [('Sir Isaac Newton', 195), ('Nikola Tesla', 189), \
+('Albert Einstein', 160), ('Steve Jobs', 160)]
+    '''
+    length=len(lst)
+    if length<=1:
+        return lst
+    pivot=lst.pop()
+    low=[]
+    high=[]
+    for el in lst:
+        if pivot[1]<el[1]:
+            low.append(el)
+        elif pivot[1]>el[1]:
+            high.append(el)
+        else:
+            if pivot==selection_sort([pivot, el]):
+                low.append(el)
+            else:
+                high.append(el)
+
+    return quick_sort(low)+[pivot]+quick_sort(high)
+
 if __name__=='__main__':
     import doctest
     print(doctest.testmod())
