@@ -30,3 +30,25 @@ def get_words(f: str, letters: list[str]) -> list[str]:
                 else:
                     possible_words.append(line.strip().lower())
     return possible_words
+
+def get_user_words() -> list[str]:
+    """
+    Gets words from user input and returns a list with these words.
+    Usage: enter a word or press ctrl+d to finish for *nix or Ctrl-Z+Enter 
+    for Windows.
+    Note: the user presses the enter key after entering each word.
+    """
+    # user_list=[]
+    # while True:
+    #     try:
+    #         inp = input()
+    #         x = inp.lower().strip()
+    #         user_list.append(x)
+    #     except EOFError:
+    #         return user_list
+    user_list=[]
+    while True:
+        try:
+            user_list.extend(input().lower().strip().split())
+        except EOFError:
+            return user_list
