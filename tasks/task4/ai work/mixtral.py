@@ -61,3 +61,21 @@ letters: list[str], words_from_dict: list[str]) -> list[str]:
             and el not in words_from_dict:
             pure_words.append(el)
     return pure_words
+
+def main():
+    '''
+    Main function of target game
+    '''
+    generate_letters = generate_grid()
+    print(f"Your board is {generate_letters}")
+    print("Please, suggest your words here:")
+    lower_generate_letters = [k.lower() for el in generate_letters for k in el]
+    counter = 0
+    user_list = get_user_words()
+    vocab_list = get_words("en.txt", lower_generate_letters )
+    counter = sum(1 for el in user_list if el in vocab_list)
+    print(f"Number of the right words: {counter}")
+    print(f"All possible words:\n {vocab_list}\n")
+    print(f"You missed the following words: \n {vocab_list.copy()}\n")
+    print(f"You suggest, but we don`t have them in dictionary: \
+{get_pure_user_words(user_list, lower_generate_letters, vocab_list)}")
