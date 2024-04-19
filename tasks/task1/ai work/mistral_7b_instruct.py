@@ -2,13 +2,12 @@
 import time
 import tracemalloc
 import random
-import pandas as pd
 
 
 tracemalloc.start()
 start_time = time.time()
 
-def read_file(file_path: str) -> dict:
+def read_file(file_path):
     '''
     Read the info from file
     >>> import tempfile
@@ -19,12 +18,9 @@ Will Smith,157\\nMarilyn vos Savant,186\\nJudith Polgar,170')
     {'Elon Musk': 165, 'Mark Zuckerberg': 152, 'Will Smith': 157, \
 'Marilyn vos Savant': 186, 'Judith Polgar': 170}
     '''
-    # Use pandas library to read the CSV file and store the data in a numpy array
-    df = pd.read_csv(file_path, header=None, names=['Name', 'IQ'], engine='python')
-    # Convert the numpy array to a dictionary
-    result = dict(df.to_numpy())
-
-    return result
+    with open(file_path, 'r', encoding='utf-8') as file:
+        iqs = (line.rstrip().split(',') for line in file if line[0].isalpha())
+        return {name: int(value) for name, value in iqs}
 
 def selection_sort(lst: list) -> list:
     '''
