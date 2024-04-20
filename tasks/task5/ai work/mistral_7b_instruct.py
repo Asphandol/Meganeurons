@@ -1,25 +1,20 @@
 import re
 import time
-start_time = time.time()
 from collections import defaultdict, Counter
+start_time = time.time()
+
 
 def selection_sort(lst:list) -> list:
     '''
     list -> list
     implements the selection sorting algorithm. Should return a sorted list lst
-    >>> selection_sort([1,2,0,7,5])
-    [0, 1, 2, 5, 7]
-    >>> selection_sort([5,4,3,2,1])
-    [1, 2, 3, 4, 5]
-    >>> selection_sort([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 2, 3, 4, 5])
-    [1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7, 8, 9, 10]
     '''
     n = len(lst)
 
     for step in range(n):
         min_idx = step
         for i in range(step+1, n):
-            if lst[min_idx] > lst[i]:
+            if lst[min_idx][1] > lst[i][1]:
                 min_idx = i
         lst[step], lst[min_idx] = lst[min_idx], lst[step]
 
@@ -50,20 +45,13 @@ def quick_sort(lst:list) -> list:
     return quick_sort(lst[:i]+lst[i+1:])
 
 
-def top_names(correct_list:list, num_list:list)-> set:
+def top_names(correct_list:list)-> set:
     '''
     Returns top 3 names
     list, list -> set
     '''
-    sorted_num_list = selection_sort(num_list)[::-1][:3]
-    topi_names = []
-    names_to_sort = [name for name in correct_list]
 
-    for _ in range(3):
-        max_name_index = names_to_sort.index((lambda name: name[1] == sorted_num_list.pop()))
-        topi_names.append(correct_list[max_name_index][0])
-
-    return set(topi_names[:3])
+    return selection_sort(correct_list)[::-1][:3]
 
 
 def one_use_name(correct_list:list) -> tuple:
@@ -71,15 +59,10 @@ def one_use_name(correct_list:list) -> tuple:
     list -> tuple
     Returns names that were used only once
     '''
-    count = defaultdict(int)
+    counter = Counter((name[0] for name in correct_list))
+    used_only_once = set(name for name, count in counter.items() if count == 1)
 
-    for name in correct_list:
-        count[name[0]] += name[1]
-
-    used_only_once = {name: count[name] for name, count in count.items() if count[name] == 1}
-    number_of_used_only_once = len(used_only_once)
-
-    return (number_of_used_only_once, set(used_only_once.keys()))
+    return (len(used_only_once), used_only_once)
 
 
 def popular_letter(correct_list:list) -> tuple:
@@ -105,18 +88,16 @@ def find_names(file_path: str) -> tuple:
         for line in lines:
             if len(line.strip()) > 0:
                 name, count = re.split(r'\s{2,}', line.strip())
-                name, count = name.strip(), int(count)
+                name, count = name.strip(), int(count[1])
                 correct_list.append((name, count))
                 num_list[name] += count
 
         top, one, popular = (
-            top_names(list(correct_list), list(num_list.keys())),
+            top_names(correct_list),
             one_use_name(correct_list),
             popular_letter(correct_list)
         )
         return (top, one, popular)
-
-
 
 if __name__=="__main__":
     import doctest
