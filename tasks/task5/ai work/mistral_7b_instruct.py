@@ -1,6 +1,6 @@
 import re
 import time
-from collections import defaultdict, Counter
+from collections import Counter
 start_time = time.time()
 
 
@@ -51,7 +51,9 @@ def top_names(correct_list:list)-> set:
     list, list -> set
     '''
 
-    return selection_sort(correct_list)[::-1][:3]
+    sorted_list = selection_sort(correct_list)[::-1][:3]
+    names = [elem[0] for elem in sorted_list]
+    return set(names)
 
 
 def one_use_name(correct_list:list) -> tuple:
@@ -59,8 +61,7 @@ def one_use_name(correct_list:list) -> tuple:
     list -> tuple
     Returns names that were used only once
     '''
-    counter = Counter((name[0] for name in correct_list))
-    used_only_once = set(name for name, count in counter.items() if count == 1)
+    used_only_once = set(name[0] for name in correct_list if name[1] == 1)
 
     return (len(used_only_once), used_only_once)
 
@@ -72,7 +73,7 @@ def popular_letter(correct_list:list) -> tuple:
     '''
     letter_count = Counter([name[0][0] for name in correct_list])
     most_popular_letter = letter_count.most_common(1)[0][0]
-    counter_kids = sum([1 for name in correct_list if name[0][0] == most_popular_letter])
+    counter_kids = sum([name[1] for name in correct_list if name[0][0] == most_popular_letter])
 
     return (most_popular_letter, letter_count[most_popular_letter], counter_kids)
 
@@ -81,17 +82,19 @@ def find_names(file_path: str) -> tuple:
     str -> tuple
     '''
     with open(file_path, "r", encoding="utf-8") as file:
-        lines = file.readlines()
+        lines = file.read().splitlines()
         correct_list = []
-        num_list = defaultdict(int)
 
         for line in lines:
-            if len(line.strip()) > 0:
-                name, count = re.split(r'\s{2,}', line.strip())
-                name, count = name.strip(), int(count[1])
-                correct_list.append((name, count))
-                num_list[name] += count
+            if not line:
+                continue
+            match = re.match(r"(\S+)\s*\(([0-9]+)\)", line)
+            if match:
+                name, count = match.groups()
+                name = name.strip()
+                count = int(count)
 
+                correct_list.append((name, count))
         top, one, popular = (
             top_names(correct_list),
             one_use_name(correct_list),
