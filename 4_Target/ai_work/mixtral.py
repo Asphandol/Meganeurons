@@ -76,3 +76,41 @@ def main():
     """
     main function
     """
+    pass
+
+import unittest
+
+class TestGeneratrGrid(unittest.TestCase):
+    def test_generate_grid(self):
+        result = generate_grid()
+        self.assertIsInstance(result, list)
+        self.assertEqual(len(result), 3)
+        for sublist in result:
+            self.assertIsInstance(sublist, list)
+            self.assertEqual(len(sublist), 3)
+            for item in sublist:
+                self.assertIsInstance(item, str)
+                self.assertTrue(len(item) == 1)
+                self.assertRegex(item, r'[A-Z]')
+
+class TestGetWords(unittest.TestCase):
+    def setUp(self):
+        self.letters = ['A', 'E', 'J', 'B', 'C', 'H']
+        self.content = 'ababalamaga'
+
+    def test_get_words(self):
+        result = get_words('4_Target/en.txt', self.letters)
+        self.assertIsInstance(result, list)
+        for word in result:
+            self.assertIsInstance(word, str)
+            self.assertTrue(len(word) >= 4)
+            self.assertRegex(word, r'\b[aejbh]*[AEJBH][aejbh]*\b')
+
+    def test_get_words_empty(self):
+        result = get_words('4_Target/en.txt', self.letters)
+        self.assertIsInstance(result, list)
+        self.assertEqual(result, [])
+
+
+if __name__ == '__main__':
+    unittest.main()
