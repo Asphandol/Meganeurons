@@ -114,6 +114,13 @@ def main():
     print(f"You missed the following words: \n {vocab_list.copy()}\n")
     print(f"You suggest, but we don`t have them in dictionary: \
 {get_pure_user_words(user_list, lower_generate_letters, vocab_list)}")
+
+
+if __name__=="__main__":
+    # generate_grid()
+    get_words("en.txt", ['b', 'c', 'd', 'a', 'e', 'i', 'o', 'u', 'y'])
+    # get_pure_user_words(слова_юзера, букви_з_дошки, слова_з_словника)
+
 end_time = time.time()
 
 print("Execution Time: ", end_time - start_time)
