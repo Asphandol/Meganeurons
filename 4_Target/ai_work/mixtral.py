@@ -39,7 +39,7 @@ def get_words(f: str, letters: list[str]) -> list[str]:
                 full_list.append(content.lower())
 
         return full_list
-print(get_words('4_Target/en.txt', [el for el in 'wumrovkif']))
+
 
 def get_user_words() -> list[str]:
     """
@@ -65,22 +65,14 @@ words_from_dict: list[str]) -> list[str]:
     """
     full_list = []
     for content in user_words:
-        content = content[:-1]
-        if (len(content) >= 4) and letters[4] in content:
-            for letter in content:
-                counter = 0
-                if letter not in letters or content.count(letter) > letters.count(letter):
-                    counter = 1
-                    break
-            if counter != 0:
-                continue
+        # Convert content to lowercase and strip '\n'
+        content = content.strip().lower()
+        if 4 <= len(content) <= 9 and letters[4] in content and all(x in letters for x in content):
             if content not in words_from_dict:
-                full_list.append(content.lower())
+                full_list.append(content)
     return full_list
 
-# def main():
-#     """
-#     main function
-#     """
-    
-
+def main():
+    """
+    main function
+    """
