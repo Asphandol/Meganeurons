@@ -51,7 +51,7 @@ class TestIntersection(unittest.TestCase):
         self.intersection2 = line1.intersect(None)
 
     def test_intersection(self):
-        self.assertEqual(self.intersection1, Point(x=5.5, y=5.0)), Point(x=5.5, y=5.0)
+        self.assertEqual(self.intersection1, Point(x=5.5, y=5.0))
         self.assertIsNone(self.intersection2)
 
 if __name__ == '__main__':
