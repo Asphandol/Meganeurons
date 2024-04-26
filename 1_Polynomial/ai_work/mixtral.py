@@ -21,9 +21,10 @@ class Mono:
             return 'Mono: 0'
         if self.coefficient == 1 and self.degree==0:
             coef = 1
-        if self.coefficient == -1 and self.degree==1:
-            coef = '-'
+        # if self.coefficient == -1 and self.degree==1:
+        #     coef = '-'
         return f"Mono: {coef}{x}"
+
     def __repr__(self) -> str:
         return f'Mono(coeff={self.coefficient}, degree={self.degree})'
 
